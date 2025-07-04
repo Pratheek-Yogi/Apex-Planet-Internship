@@ -1,9 +1,13 @@
-
 <?php
-require 'auth.php';
-$id = $_GET['id'];
-$stmt = $conn->prepare("DELETE FROM posts WHERE id=? AND user_id=?");
-$stmt->bind_param("ii", $id, $_SESSION['user_id']);
-$stmt->execute();
-header("Location: dashboard.php");
-?>
+include 'db.php';
+include 'auth.php';
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $stmt = $conn->prepare("DELETE FROM posts WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+}
+
+header("Location: index.php");
+exit;
