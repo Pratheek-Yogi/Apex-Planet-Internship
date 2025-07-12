@@ -1,0 +1,91 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.search-form input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.search-form button {
+    padding: 10px 15px;
+    background-color: #3f87f5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-form button:hover {
+    background-color: #336ed3;
+}
+
+.post {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.post h2 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.no-results {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 4px;
+    background-color: #eee;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.pagination a.active {
+    background-color: #3f87f5;
+    color: white;
+    font-weight: bold;
+}
