@@ -1,17 +1,13 @@
 <?php
-$dsn  = "mysql:host=localhost;dbname=blog1;charset=utf8mb4";
-$user = "root";
-$pass = "";
-
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+$host = 'localhost';
+$db = 'blog1';
+$user = 'root';
+$pass = ''; // or your MySQL password
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    exit("DB Connection failed: " . $e->getMessage());
+    die("DB Connection failed: " . $e->getMessage());
 }
-
-session_start();
+?>
