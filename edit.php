@@ -1,4 +1,5 @@
 <?php
+// edit.php (FINAL - MySQLi)
 include 'db.php';
 include 'auth.php';
 
@@ -8,17 +9,30 @@ if (!isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-$result = $conn->query("SELECT * FROM posts WHERE id = $id");
+
+// MySQLi Prepared Statement for SELECT
+$stmt = $conn->prepare("SELECT * FROM posts WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $post = $result->fetch_assoc();
+$stmt->close();
+
+if (!$post) {
+    header("Location: index.php");
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     
     if (!empty($title) && !empty($content)) {
+        // MySQLi Prepared Statement for UPDATE
         $stmt = $conn->prepare("UPDATE posts SET title = ?, content = ? WHERE id = ?");
         $stmt->bind_param("ssi", $title, $content, $id);
         $stmt->execute();
+        $stmt->close();
         header("Location: index.php");
         exit;
     }

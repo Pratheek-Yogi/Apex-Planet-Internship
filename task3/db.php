@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'blog1';
+$db = 'blog';
 $user = 'root';
 $pass = ''; // or your MySQL password
 

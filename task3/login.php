@@ -1,19 +1,30 @@
 <?php
-require 'db.php';
+session_start(); 
+
+// Include the database connection
+require 'db.php'; 
 
 $login_error = "";
 
+// Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
+    // 1. Prepare and execute the SELECT statement
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
+    // 2. Check if the user exists AND if the submitted password matches the hash
     if ($user && password_verify($password, $user['password'])) {
+        
+        // Success! Store user data in the session
+        $_SESSION['user_id'] = $user['id']; // Store ID for robustness
         $_SESSION['user'] = $user['username'];
         $_SESSION['role'] = $user['role'];
+        
+        // Redirect to the protected page
         header("Location: index.php");
         exit;
     } else {
@@ -33,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h3 class="text-center mb-4">🔐 Secure Login</h3>
 
     <?php if ($login_error): ?>
-        <div class="alert alert-danger"><?= $login_error ?></div>
+        <div class="alert alert-danger"><?= htmlspecialchars($login_error) ?></div>
     <?php endif; ?>
 
     <form method="POST" novalidate>
